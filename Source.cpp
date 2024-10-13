@@ -193,11 +193,69 @@ public:
     static int getObjectCount() {
         return objCount;
     }
+
+    char& operator[](int index) {
+        return str[index];
+    }
+
+    MyString& operator()(const char* inputStr) {
+        delete[] str;
+        length = MyStrLen(inputStr);
+        str = new char[length + 1];
+        MyStrcpy(str, inputStr);
+        return *this;
+    }
+
+    MyString operator+(char c) const {
+        MyString result(length + 1);
+        for (int i = 0; i < length; ++i) {
+            result.str[i] = str[i];
+        }
+        result.str[length] = c;
+        result.str[length + 1] = '\0';
+        return result;
+    }
+
+    friend MyString operator+(char c, const MyString& obj) {
+        MyString result(obj.length + 1);
+        result.str[0] = c;
+        for (int i = 0; i < obj.length; ++i) {
+            result.str[i + 1] = obj.str[i];
+        }
+        result.str[obj.length + 1] = '\0';
+        return result;
+    }
+
+    MyString operator+(int n) const {
+        MyString result(length + n);
+        for (int i = 0; i < length; ++i) {
+            result.str[i] = str[i];
+        }
+        for (int i = length; i < length + n; ++i) {
+            result.str[i] = '_'; 
+        }
+        result.str[length + n] = '\0';
+        return result;
+    }
+
+    friend MyString operator+(int n, const MyString& obj) {
+        return obj + n;
+    }
+
+    MyString operator++(int) {
+        return *this + '_';  
+    }
+
+    MyString& operator--(int) {
+        *this = '_' + *this; 
+        return *this;
+    }
 };
 
 int MyString::objCount = 0;
 
 int main() {
+
     // Создание строк
     MyString str1("Hello");
     MyString str2("World");
@@ -237,11 +295,52 @@ int main() {
     // Демонстрация копирования строки (MyStrcpy)
     cout << "Demonstration of MyStrcpy: ";
     MyString str4;
-    str4.MyStrcpy(str2.str, str1.str);
+    str4.MyStrcpy(str4.str, str1.str);
     str4.Output();
+
+    // Проверка оператора = (присваивание)
+    cout << "Demonstration of operator= : ";
+    MyString str5;
+    str5 = str1;  
+    str5.Output(); 
 
     // Количество объектов
     cout << "Object count: " << MyString::getObjectCount() << endl;
+
+    MyString str6("Hello");
+
+    // Демонстрация оператора []
+    cout << "Demonstration of [] operator: " << str6[1] << endl;
+
+    // Демонстрация оператора ()
+    str6("New string");
+    cout << "Demonstration of () operator: ";
+    str6.Output();
+
+    // Демонстрация добавления символа в конец
+    cout << "Adding 'A' to end: ";
+    MyString str7 = str6 + 'A';
+    str7.Output();
+
+    // Демонстрация добавления символа в начало
+    cout << "Adding 'B' to beginning: ";
+    str7 = 'B' + str6;
+    str7.Output();
+
+    // Демонстрация добавления 10 символов
+    cout << "Adding 10 to end: ";
+    str7 = str6 + 10;
+    str7.Output();
+
+    // Постфиксный инкремент
+    cout << "Postfix increment (add '_'): ";
+    str6++;
+    str6.Output();
+
+    // Постфиксный инкремент (добавление в начало)
+    cout << "Postfix decrement (add '_' to start): ";
+    str6--;
+    str6.Output();
 
     return 0;
 }
