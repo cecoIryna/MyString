@@ -40,6 +40,8 @@ public:
 
     MyString operator++();
     MyString operator++(int);
+
+    void setLength(int newLength);
 };
 
 MyString operator+(const MyString& a, char b);
@@ -48,3 +50,5 @@ MyString operator+(char b, const MyString& a);
 MyString operator+(const MyString& a, int num);
 MyString operator+(int num, const MyString& a);
 
+ostream& operator << (ostream& os, const MyString& obj);
+istream& operator >> (istream& is, MyString& obj);

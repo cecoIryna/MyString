@@ -156,9 +156,9 @@ MyString MyString::operator+(const MyString& b) const {
 MyString MyString::operator=(const MyString& other) {
     if (this == &other) return *this;
     delete[] str;
-    length = other.length;
+    length = other.MyStrLen();
     str = new char[length + 1];
-    MyStrcpy(str, other.str);
+    MyStrcpy(str, other.GetStr());
     return *this;
 }
 
@@ -253,6 +253,27 @@ MyString operator+(int num, const MyString& a) {
     return newString;
 }
 
+ostream& operator<<(ostream& os, const MyString& obj)
+{
+    os << obj.GetStr();
+    return os;
+}
+
+istream& operator>>(istream& is, MyString& obj)
+{
+    char buffer[1000];
+    is.getline(buffer, 1000);
+
+    int newLength = obj.MyStrLen(buffer); 
+    delete[] obj.GetStr(); 
+
+    char* newStr = new char[newLength + 1];
+    obj.MyStrcpy(newStr, buffer);
+    obj.setLength(newLength);
+
+    return is;
+}
+
 MyString MyString::operator++()
 {
     int newLength = MyStrLen() + 1;
@@ -287,4 +308,8 @@ MyString MyString::operator++(int)
     MyString newString(newStr);
     delete[] newStr;
     return newString;
+}
+
+void MyString::setLength(int newLength) {
+    length = newLength;
 }
