@@ -29,7 +29,7 @@ MyString::MyString(int size) {
 }
 
 MyString::MyString(const char* inputStr) {
-    length = strlen(inputStr);
+    length = MyStrLen(inputStr);
     str = new char[length + 1];
     strcpy(str, inputStr);
     objCount++;
@@ -49,6 +49,14 @@ MyString::~MyString() {
 
 char* MyString:: GetStr() const {
     return str;
+}
+
+void MyString::setStr(const char* inputStr)
+{
+    delete[] str;  
+    length = strlen(inputStr);
+    str = new char[length + 1];
+    strcpy(str, inputStr);
 }
 
 
@@ -291,28 +299,10 @@ MyString MyString::operator++(int)
     return newString;
 }
 
-//HW_12
-void MyString::setLength(int newLength) {
-    length = newLength;
-}
-
-ostream& operator<<(ostream& os, const MyString& obj)
+int MyString::getLength() const
 {
-    os << obj.GetStr();
-    return os;
+    return length;
 }
 
-istream& operator>>(istream& is, MyString& obj)
-{
-    char buffer[1000];
-    is.getline(buffer, 1000);
 
-    int newLength = obj.MyStrLen(buffer);
-    delete[] obj.GetStr();
 
-    char* newStr = new char[newLength + 1];
-    obj.MyStrcpy(newStr, buffer);
-    obj.setLength(newLength);
-
-    return is;
-}

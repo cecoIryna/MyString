@@ -16,6 +16,8 @@ public:
     ~MyString();
 
     char* GetStr() const;
+    void setStr(const char*);
+
 
     void Input();
     void Output() const;
@@ -42,7 +44,9 @@ public:
     MyString operator++();
     MyString operator++(int);
 
+    int getLength() const;
     void setLength(int newLength);
+    
 };
 
 MyString operator+(const MyString& a, char b);
@@ -50,7 +54,3 @@ MyString operator+(char b, const MyString& a);
 
 MyString operator+(const MyString& a, int num);
 MyString operator+(int num, const MyString& a);
-
-//HW_12
-ostream& operator << (ostream& os, const MyString& obj);
-istream& operator >> (istream& is, MyString& obj);

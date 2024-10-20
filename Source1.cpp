@@ -86,7 +86,7 @@ int main() {
     // Демонстрация добавления 10 символов в начало строки
     MyString str9 = 10 + str6;  
     cout << "After adding 10 ! to the start: ";
-    str8.Output();
+    str9.Output();
 
     // Постфиксный инкремент
     cout << "Add _ to the end: ";
@@ -97,6 +97,7 @@ int main() {
     cout << "Add _ to the start: ";
     MyString str11 = ++str6;
     str11.Output();
+
 
     return 0;
 }
