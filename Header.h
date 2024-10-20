@@ -1,5 +1,5 @@
 #pragma once 
-
+//HW_10
 class MyString {
     char* str;
     int length;
@@ -27,6 +27,7 @@ public:
     void MyDelChr(char);
     int MyStrCmp(MyString& b);
 
+    //HW_11
     MyString operator+(const MyString& b) const;
     MyString operator=(const MyString& other);
 
@@ -50,5 +51,6 @@ MyString operator+(char b, const MyString& a);
 MyString operator+(const MyString& a, int num);
 MyString operator+(int num, const MyString& a);
 
+//HW_12
 ostream& operator << (ostream& os, const MyString& obj);
 istream& operator >> (istream& is, MyString& obj);

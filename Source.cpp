@@ -1,3 +1,4 @@
+//HW_10
 #include <iostream>
 #include <cstring>
 #include <Windows.h>
@@ -170,6 +171,7 @@ int MyString::getObjectCount() {
     return objCount;
 }
 
+//HW_11
 char& MyString::operator[](int index) {
     return str[index];
 }
@@ -253,27 +255,6 @@ MyString operator+(int num, const MyString& a) {
     return newString;
 }
 
-ostream& operator<<(ostream& os, const MyString& obj)
-{
-    os << obj.GetStr();
-    return os;
-}
-
-istream& operator>>(istream& is, MyString& obj)
-{
-    char buffer[1000];
-    is.getline(buffer, 1000);
-
-    int newLength = obj.MyStrLen(buffer); 
-    delete[] obj.GetStr(); 
-
-    char* newStr = new char[newLength + 1];
-    obj.MyStrcpy(newStr, buffer);
-    obj.setLength(newLength);
-
-    return is;
-}
-
 MyString MyString::operator++()
 {
     int newLength = MyStrLen() + 1;
@@ -310,6 +291,28 @@ MyString MyString::operator++(int)
     return newString;
 }
 
+//HW_12
 void MyString::setLength(int newLength) {
     length = newLength;
+}
+
+ostream& operator<<(ostream& os, const MyString& obj)
+{
+    os << obj.GetStr();
+    return os;
+}
+
+istream& operator>>(istream& is, MyString& obj)
+{
+    char buffer[1000];
+    is.getline(buffer, 1000);
+
+    int newLength = obj.MyStrLen(buffer);
+    delete[] obj.GetStr();
+
+    char* newStr = new char[newLength + 1];
+    obj.MyStrcpy(newStr, buffer);
+    obj.setLength(newLength);
+
+    return is;
 }
